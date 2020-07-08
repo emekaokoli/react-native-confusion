@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, Text } from 'react-native'
+import { FlatList } from 'react-native'
 import { ListItem } from 'react-native-elements'
 
 export default function Menu(props) {
@@ -10,7 +10,8 @@ export default function Menu(props) {
         title={item.name}
         subtitle={item.description}
         hideChevron={true}
-        leftAvatar={{ source: require('./images/uthappizza.png'), }}
+        onPress={() => props.onPress(item.id)}
+        leftAvatar={{ source: require('./images/uthappizza.png') }}
       />
     )
   }
@@ -22,7 +23,6 @@ export default function Menu(props) {
         renderItem={renderMenuItem}
         keyExtractor={(item) => item.id.toString()}
       />
-      <Text>testing 123</Text>
     </>
   )
 }
