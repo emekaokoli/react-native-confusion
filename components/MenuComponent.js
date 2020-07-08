@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, Text } from 'react-native'
 import { ListItem } from 'react-native-elements'
 
 export default function Menu(props) {
@@ -16,10 +16,13 @@ export default function Menu(props) {
   }
 
   return (
-    <FlatList
-      data={props.dishes}
-      renderItem={renderMenuItem}
-      keyExtractor={(item) => item.id.toString()}
-    />
+    <>
+      <FlatList
+        data={props.dishes}
+        renderItem={renderMenuItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
+      <Text>testing 123</Text>
+    </>
   )
 }
