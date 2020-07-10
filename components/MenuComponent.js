@@ -31,7 +31,6 @@ render() {
            params: { screen: 'Dishdetail', dishId: item.id },
          })
        }
-       //  onPress={() => navigate('Dishdetail', { dishId: item.id })}
 
        leftAvatar={{ source: require('./images/uthappizza.png') }}
      />
