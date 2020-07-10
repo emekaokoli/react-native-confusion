@@ -1,7 +1,12 @@
 {
   "expo": {
+<<<<<<< HEAD
     "name": "Confusion",
     "slug": "Confusion",
+=======
+    "name": "confusion",
+    "slug": "confusion",
+>>>>>>> d171971752561053eb5ad775b617074cbb837a35
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +18,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
+<<<<<<< HEAD
     "assetBundlePatterns": [
       "**/*"
     ],
+=======
+    "assetBundlePatterns": ["**/*"],
+>>>>>>> d171971752561053eb5ad775b617074cbb837a35
     "ios": {
       "supportsTablet": true
     },
