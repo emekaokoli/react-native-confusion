@@ -23,6 +23,7 @@ render() {
        title={item.name}
        subtitle={item.description}
        hideChevron={true}
+       //  onPress={() => navigate('Dishdetail')}
        onPress={() =>
          this.props.navigation.navigate({
            name: 'Dishdetail',
@@ -49,3 +50,4 @@ render() {
   }
 }
 export default Menu
+

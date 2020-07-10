@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d171971752561053eb5ad775b617074cbb837a35
+
 node_modules/**/*
 .expo/*
 npm-debug.*
@@ -15,10 +12,7 @@ web-build/
 
 # macOS
 .DS_Store
-<<<<<<< HEAD
-=======
-=======
-# Logs
+
 logs
 *.log
 npm-debug.log*
@@ -122,5 +116,3 @@ dist
 
 # TernJS port file
 .tern-port
->>>>>>> 56a10cf14745872b743e91b3c384799d3b6d1db8
->>>>>>> d171971752561053eb5ad775b617074cbb837a35
