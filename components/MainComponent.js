@@ -2,6 +2,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { Component } from 'react'
+import About from './AboutusComponent'
+import Contact from './ContactusComponent'
 import Dishdetail from './DishdetailComponent'
 import Home from './HomeComponent'
 import Menu from './MenuComponent'
@@ -47,7 +49,30 @@ function MenuNavigatorScreen() {
      </HomeNavigator.Navigator>
    )
  }
+ const AboutNavigator = createDrawerNavigator()
 
+ function AboutScreen() {
+   return (
+     <AboutNavigator.Navigator
+       initialRouteName='Menu'
+       screenOptions={HeaderOptions}
+     >
+       <AboutNavigator.Screen name='About' component={About} />
+     </AboutNavigator.Navigator>
+   )
+ }
+const ContactNavigator = createDrawerNavigator()
+
+function ContactScreen() {
+  return (
+    <ContactNavigator.Navigator
+      initialRouteName='Menu'
+      screenOptions={HeaderOptions}
+    >
+      <ContactNavigator.Screen name='Contact' component={Contact} />
+    </ContactNavigator.Navigator>
+  )
+}
 const MainNavigator = createDrawerNavigator()
 
 function MainNavigatorDrawer() {
@@ -60,9 +85,13 @@ function MainNavigatorDrawer() {
     >
       <MainNavigator.Screen name='Home' component={HomeNavigatorScreen} />
       <MainNavigator.Screen name='Menu' component={MenuNavigatorScreen} />
+      <MainNavigator.Screen name='About Us' component={AboutScreen} />
+      <MainNavigator.Screen name='Contact Us' component={ContactScreen} />
     </MainNavigator.Navigator>
   )
 }
+
+
 export default class Main extends Component {
   
   render() {

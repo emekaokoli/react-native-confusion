@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 import { DISHES } from '../shared/dishes';
 
+
 function RenderDish({dish}) {
     // const dish = props.dish;
     
