@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { LEADERS } from '../shared/leaders';
@@ -21,28 +21,42 @@ function History() {
       </Text>
     </Card>
   )
-  
 }
-function RenderLeader({ leader }) {
-
-  if (leader != null) {
+function RenderLeader({ item, index }) {
+  if (item != null) {
+    
     return (
-      <Card title='Corporate Leadership'>
-        {leader.map((lead) => {
-          return (
+      <>
+          
             <ListItem
-              key={lead.id}
-              title={lead.name}
-              subtitle={lead.description}
+              key={index}
+              title={item.name}
+              subtitle={item.description}
               titleStyle={{ fontWeight: 'bold', color: '#512DA8' }}
               hideChevron={true}
               leftAvatar={{
                 source: require('./images/alberto.png'),
               }}
             />
-          )
-        })}
-      </Card>
+          
+        
+      </>
+      // <Card title='Corporate Leadership'>
+      //   {leader.map((lead) => {
+      //     return (
+      //       <ListItem
+      //         key={index}
+      //         title={lead.name}
+      //         subtitle={lead.description}
+      //         titleStyle={{ fontWeight: 'bold', color: '#512DA8' }}
+      //         hideChevron={true}
+      //         leftAvatar={{
+      //           source: require('./images/alberto.png'),
+      //         }}
+      //       />
+      //     )
+      //   })}
+      // </Card>
     )
   } else {
     return <View></View>
@@ -58,16 +72,25 @@ export default class About extends Component{
     }
   }
   render() {
-        
+       
         return (
-          <ScrollView>
-            <History />
-            <RenderLeader
-              leader={this.state.leaders}
-              // renderItem={RenderLeader}
-              // keyExtractor={(leader) => leader.id.toString()}
-            />
-          </ScrollView>
+          <View>
+            <ScrollView>
+              <View>
+                <History />
+              </View>
+              <View>
+                <Card title='Corporate Leadership'>
+                  <FlatList
+                    nestedScrollEnabled={true}
+                    data={this.state.leaders}
+                    renderItem={RenderLeader}
+                    keyExtractor={(leader) => leader.id.toString()}
+                  />
+                </Card>
+              </View>
+            </ScrollView>
+          </View>
         )
     }
 }

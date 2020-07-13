@@ -49,7 +49,7 @@ function MenuNavigatorScreen() {
      </HomeNavigator.Navigator>
    )
  }
- const AboutNavigator = createDrawerNavigator()
+ const AboutNavigator = createStackNavigator()
 
  function AboutScreen() {
    return (
@@ -61,7 +61,7 @@ function MenuNavigatorScreen() {
      </AboutNavigator.Navigator>
    )
  }
-const ContactNavigator = createDrawerNavigator()
+const ContactNavigator = createStackNavigator()
 
 function ContactScreen() {
   return (
@@ -73,16 +73,15 @@ function ContactScreen() {
     </ContactNavigator.Navigator>
   )
 }
+
 const MainNavigator = createDrawerNavigator()
 
 function MainNavigatorDrawer() {
   return (
     <MainNavigator.Navigator
       initialRouteName='Home'
-      drawerStyle={{
-        backgroundColor: '#D1C4E9',
-      }}
-    >
+      drawerStyle={{backgroundColor: '#D1C4E9'}}
+      >
       <MainNavigator.Screen name='Home' component={HomeNavigatorScreen} />
       <MainNavigator.Screen name='Menu' component={MenuNavigatorScreen} />
       <MainNavigator.Screen name='About Us' component={AboutScreen} />
