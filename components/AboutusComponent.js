@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, SafeAreaView, Text, View } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
 import { LEADERS } from '../shared/leaders';
 
 
@@ -74,23 +73,21 @@ export default class About extends Component{
   render() {
        
         return (
-          <View>
-            <ScrollView>
-              <View>
-                <History />
-              </View>
-              <View>
-                <Card title='Corporate Leadership'>
-                  <FlatList
-                    nestedScrollEnabled={true}
-                    data={this.state.leaders}
-                    renderItem={RenderLeader}
-                    keyExtractor={(leader) => leader.id.toString()}
-                  />
-                </Card>
-              </View>
-            </ScrollView>
-          </View>
+          <>
+            <SafeAreaView style={{ flex: 1 }}>
+              {/* <ScrollView> */}
+              <History />
+              <Card title='Corporate Leadership'>
+                <FlatList
+                  data={this.state.leaders}
+                  renderItem={RenderLeader}
+                  keyExtractor={(leader) => leader.id.toString()}
+               />
+              </Card>
+
+              {/* </ScrollView> */}
+            </SafeAreaView>
+          </>
         )
     }
 }
