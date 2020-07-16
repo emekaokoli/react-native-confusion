@@ -4,11 +4,33 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/ActionCreators';
 import About from './AboutusComponent';
 import Contact from './ContactusComponent';
 import Dishdetail from './DishdetailComponent';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
+
+
+
+
+
+const mapStateToProps = (state) => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders,
+  }
+}
+const mapDispatchToProps = (dispatch) => ({
+  fetchDishes: () => dispatch(fetchDishes()),
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos()),
+  fetchLeaders: () => dispatch(fetchLeaders()),
+})
+
 
 const DrawerContent = (props) => (
   <ScrollView>
@@ -217,11 +239,13 @@ function MainNavigatorDrawer() {
   )
 }
  
-  
-
-
-
-export default class Main extends Component {
+class Main extends Component {
+   componentDidMount() {
+    this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchPromos();
+    this.props.fetchLeaders();
+  }
   
   render() {
     return (
@@ -255,3 +279,4 @@ const styles = StyleSheet.create({
     height: 60,
   },
 })
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
