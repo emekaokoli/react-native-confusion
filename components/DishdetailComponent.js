@@ -21,9 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 function RenderDish({ dish, favorite, onPress }) {
-  console.log('=================inside render dish===================');
-  console.log(favorite);
-  console.log('====================================');
+
   // const dish = props.dish;
   if (dish != null) {
     return (
@@ -36,7 +34,7 @@ function RenderDish({ dish, favorite, onPress }) {
           type='font-awesome'
           color='#f50'
           onPress={() =>
-            favorite ? console.log('Already favorite') : onPress()
+            favorite ? console.log('Already favoritedkk') : onPress()
           }
         />
       </Card>
@@ -80,9 +78,7 @@ class Dishdetail extends Component {
 
   render() {
     const dishId = this.props.route.params.dishId
-    console.log('============for favourites component========================');
-    console.log(favorite);
-    console.log('====================================');
+ 
     return (
       <SafeAreaView>
         <RenderDish
