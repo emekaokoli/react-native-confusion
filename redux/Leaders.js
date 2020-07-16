@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes'
 
-export const Leaders = (
+export const leaders = (
   state = { isLoading: true, errMess: null, leaders: [] },
   action,
 ) => {
@@ -14,7 +14,7 @@ export const Leaders = (
       }
 
     case ActionTypes.LEADERS_LOADING:
-      return { ...state, isLoading: true, errMess: null, promotions: [] }
+      return { ...state, isLoading: true, errMess: null, leaders: [] }
 
     case ActionTypes.LEADERS_FAILED:
       return { ...state, isLoading: false, errMess: action.payload }

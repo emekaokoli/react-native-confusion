@@ -3,6 +3,7 @@ import { FlatList, Text, View } from 'react-native'
 import { Card, Icon } from 'react-native-elements'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { connect } from 'react-redux'
+import { postFavorite } from '../redux/ActionCreators'
 import { baseUrl } from '../shared/baseUrl'
 
 
@@ -10,10 +11,19 @@ const mapStateToProps = (state) => {
   return {
     dishes: state.dishes,
     comments: state.comments,
+    favorites: state.favorites,
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  postFavorite: (dishId) => dispatch(postFavorite(dishId)),
+})
+
+
 function RenderDish({ dish, favorite, onPress }) {
+  console.log('=================inside render dish===================');
+  console.log(favorite);
+  console.log('====================================');
   // const dish = props.dish;
   if (dish != null) {
     return (
@@ -63,31 +73,30 @@ function RenderComments(props) {
 }
 
 class Dishdetail extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      favorites: []
-    }
-  }
+  
   markFavorite(dishId) {
-    this.setState({ favorites: this.state.favorites.concat(dishId) })
+    this.props.postFavorite(dishId)
   }
+
   render() {
     const dishId = this.props.route.params.dishId
+    console.log('============for favourites component========================');
+    console.log(favorite);
+    console.log('====================================');
     return (
       <SafeAreaView>
-          <RenderDish
-            dish={this.props.dishes.dishes[+dishId]}
-            favorite={this.state.favorites.some((el) => el === dishId)}
-            onPress={() => this.markFavorite(dishId)}
-          />
-          <RenderComments
-            comments={this.props.comments.comments.filter(
-              (comment) => comment.dishId === dishId,
-            )}
-          />
+        <RenderDish
+          dish={this.props.dishes.dishes[+dishId]}
+          favorite={this.props.favorites.some((el) => el === dishId)}
+          onPress={() => this.markFavorite(dishId)}
+        />
+        <RenderComments
+          comments={this.props.comments.comments.filter(
+            (comment) => comment.dishId === dishId,
+          )}
+        />
       </SafeAreaView>
     )
   }
 }
-export default connect(mapStateToProps)(Dishdetail)
+export default connect(mapStateToProps, mapDispatchToProps)(Dishdetail)
