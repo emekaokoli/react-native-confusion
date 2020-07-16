@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { FlatList, SafeAreaView, Text, View } from 'react-native';
-import { Card, ListItem } from 'react-native-elements';
-import { connect } from 'react-redux';
-import { baseUrl } from '../shared/baseUrl';
-
-
+import React, { Component } from 'react'
+import { FlatList, Text, View } from 'react-native'
+import { Card, ListItem } from 'react-native-elements'
+import { ScrollView } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { connect } from 'react-redux'
+import { baseUrl } from '../shared/baseUrl'
+import { Loading } from './LoadingComponent'
 
 const mapStateToProps = (state) => {
   return {
     leaders: state.leaders,
   }
 }
-
 
 function History() {
   return (
@@ -32,7 +32,6 @@ function History() {
 }
 function RenderLeader({ item, index }) {
   if (item != null) {
-    
     return (
       <>
         <ListItem
@@ -66,27 +65,42 @@ function RenderLeader({ item, index }) {
   }
 }
 
-class About extends Component{
-  
+class About extends Component {
   render() {
-       
-        return (
-          <>
-            <SafeAreaView style={{ flex: 1 }}>
-              {/* <ScrollView> */}
-              <History />
-              <Card title='Corporate Leadership'>
-                <FlatList
-                  data={this.props.leaders.leaders}
-                  renderItem={RenderLeader}
-                  keyExtractor={(leader) => leader.id.toString()}
-               />
-              </Card>
-
-              {/* </ScrollView> */}
-            </SafeAreaView>
-          </>
-        )
+    if (this.props.leaders.isLoading) {
+      return (
+        <ScrollView>
+          <History />
+          <Card title='Corporate Leadership'>
+            <Loading />
+          </Card>
+        </ScrollView>
+      )
+    } else if (this.props.leaders.errMess) {
+      return (
+        <ScrollView>
+          <History />
+          <Card title='Corporate Leadership'>
+            <Text>{this.props.leaders.errMess}</Text>
+          </Card>
+        </ScrollView>
+      )
+    } else {
+      return (
+        <SafeAreaView>
+          <ScrollView>
+            <History />
+            <Card title='Corporate Leadership'>
+              <FlatList
+                data={this.props.leaders.leaders}
+                renderItem={RenderLeader}
+                keyExtractor={(item) => item.id.toString()}
+              />
+            </Card>
+          </ScrollView>
+        </SafeAreaView>
+      )
     }
+  }
 }
 export default connect(mapStateToProps)(About)

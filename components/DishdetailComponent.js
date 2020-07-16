@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import { Card, Icon } from 'react-native-elements'
-import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { connect } from 'react-redux'
 import { baseUrl } from '../shared/baseUrl'
@@ -77,7 +76,6 @@ class Dishdetail extends Component {
     const dishId = this.props.route.params.dishId
     return (
       <SafeAreaView>
-        <ScrollView>
           <RenderDish
             dish={this.props.dishes.dishes[+dishId]}
             favorite={this.state.favorites.some((el) => el === dishId)}
@@ -88,7 +86,6 @@ class Dishdetail extends Component {
               (comment) => comment.dishId === dishId,
             )}
           />
-        </ScrollView>
       </SafeAreaView>
     )
   }
