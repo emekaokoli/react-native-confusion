@@ -88,7 +88,6 @@ function MenuNavigatorScreen() {
           ),
         })}
       />
-
       <MenuNavigator.Screen
         name='Dishdetail'
         component={Dishdetail}
