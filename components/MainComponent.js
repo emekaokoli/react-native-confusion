@@ -29,6 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
   fetchLeaders: () => dispatch(fetchLeaders()),
+  postComment: (dishId, rating, author, comment) =>
+    dispatch(postComment(dishId, rating, author, comment)),
+ 
 })
 
 
@@ -224,7 +227,7 @@ function MainNavigatorDrawer() {
         name='Menu'
         component={MenuNavigatorScreen}
         options={() => ({
-          drawerLabel: 'menu',
+          drawerLabel: 'Menu',
           drawerIcon: ({ tintColor, focused }) => (
             <Icon name='list' type='font-awesome' size={24} color={tintColor} />
           ),
@@ -234,7 +237,7 @@ function MainNavigatorDrawer() {
         name='About Us'
         component={AboutScreen}
         options={() => ({
-          drawerLabel: 'About',
+          drawerLabel: 'About us',
           drawerIcon: ({ tintColor, focused }) => (
             <Icon
               name='info-circle'
@@ -249,7 +252,7 @@ function MainNavigatorDrawer() {
         name='Contact Us'
         component={ContactScreen}
         options={() => ({
-          drawerLabel: 'About',
+          drawerLabel: 'Contact us',
           drawerIcon: ({ tintColor, focused }) => (
             <Icon
               name='address-card'

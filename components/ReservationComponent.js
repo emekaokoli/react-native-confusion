@@ -15,7 +15,7 @@ class Reservation extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      guests: 1,
+      guests: 0,
       smoking: false,
       date: '',
       visible: false,
@@ -29,6 +29,10 @@ class Reservation extends Component {
   handleReservation() {
     console.log(JSON.stringify(this.state))
     this.toggleModal()
+  }
+  handletoggle(){
+    this.toggleModal()
+    this.resetForm()
   }
 
   resetForm() {
@@ -110,9 +114,9 @@ class Reservation extends Component {
           transparent={false}
           hideModalContentWhileAnimating
           visible={this.state.showModal}
-          // onDismiss={() => this.toggleModal()}
-          onRequestClose={() => this.toggleModal()}
-          useNativeDriver
+          onDismiss={() => this.toggleModal()}
+          onRequestClose={this.toggleModal}
+          useNativeDriver={true}
         >
           <View style={styles.modal}>
             <Text style={styles.modalTitle}>Your Reservation</Text>
@@ -127,9 +131,8 @@ class Reservation extends Component {
             </Text>
 
             <Button
-              onPress={() => {
-                this.toggleModal()
-                this.resetForm()
+              onPress={(showModal) => {
+                this.setState({ showModal: showModal })
               }}
               color='#512DA8'
               title='Close'
