@@ -9,6 +9,7 @@ import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/
 import About from './AboutusComponent';
 import Contact from './ContactusComponent';
 import Dishdetail from './DishdetailComponent';
+import Favorites from './FavoriteComponent';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Reservation from './ReservationComponent';
@@ -100,6 +101,31 @@ function MenuNavigatorScreen() {
   )
 }
 
+const FavoritesNavigator = createStackNavigator()
+function FavoritesNavigatorScreen() {
+  return (
+    <FavoritesNavigator.Navigator
+      initialRouteName='Menu'
+      screenOptions={HeaderOptions}
+    >
+      <FavoritesNavigator.Screen
+        name='Favorites'
+        component={Favorites}
+        options={({ navigation }) => ({
+          drawerLabel: 'Favorites',
+          headerLeft: () => (
+            <Icon
+              name='menu'
+              size={24}
+              color='white'
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+    </FavoritesNavigator.Navigator>
+  )
+}
 const ReservationNavigator = createStackNavigator()
 function ReservationNavigatorScreen() {
   return (
@@ -111,7 +137,7 @@ function ReservationNavigatorScreen() {
         name='Reservation'
         component={Reservation}
         options={({ navigation }) => ({
-          drawerLabel:'Reservation',
+          drawerLabel: 'Reservation',
           headerLeft: () => (
             <Icon
               name='menu'
@@ -256,6 +282,21 @@ function MainNavigatorDrawer() {
           drawerIcon: ({ tintColor, focused }) => (
             <Icon
               name='address-card'
+              type='font-awesome'
+              size={24}
+              color={tintColor}
+            />
+          ),
+        })}
+      />
+      <MainNavigator.Screen
+        name='Favorites'
+        component={FavoritesNavigatorScreen}
+        options={() => ({
+          drawerLabel: 'Favorites',
+          drawerIcon: ({ tintColor, focused }) => (
+            <Icon
+              name='heart'
               type='font-awesome'
               size={24}
               color={tintColor}

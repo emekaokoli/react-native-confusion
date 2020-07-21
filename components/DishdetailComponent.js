@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
   Button, FlatList,
-
   Modal, ScrollView,
   StyleSheet, Text,
   View
@@ -119,6 +118,9 @@ class Dishdetail extends Component {
 
   render() {
     const dishId = this.props.navigation.getParam('dishId', '')
+    console.log('====================================');
+    console.log(this.props)
+    console.log('====================================');
     return (
       <ScrollView>
         <RenderDish
@@ -216,4 +218,4 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Dishdetail)
+export default connect(mapStateToProps, mapDispatchToProps)(Dishdetail);
