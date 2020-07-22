@@ -1,7 +1,9 @@
 // import { createForms } from 'react-redux-form'
 import { createForms } from 'react-redux-form'
-import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import logger from 'redux-logger'
+import { persistCombineReducers, persistStore } from 'redux-persist'
+import storage from 'redux-persist/es/storage'
 import thunk from 'redux-thunk'
 import { comments } from './Comments'
 import { dishes } from './Dishes'
@@ -10,10 +12,16 @@ import { commentsInitial } from './forms'
 import { leaders } from './Leaders'
 import { promotions } from './Promotions'
 
+const config = {
+  key: 'root',
+  storage,
+  debug: true,
+}
+
 
 export const ConfigureStore = () => {
   const store = createStore(
-    combineReducers({
+    persistCombineReducers({
       dishes,
       comments,
       promotions,
@@ -26,5 +34,7 @@ export const ConfigureStore = () => {
     }),
     applyMiddleware(thunk, logger),
   )
-  return store
+   const persistor = persistStore(store)
+
+   return { persistor, store }
 }
