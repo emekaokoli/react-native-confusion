@@ -1,18 +1,24 @@
 import React, { Component } from 'react'
 import {
-  FlatList,
+  Alert, FlatList,
   Modal,
-  ScrollView,
+
+
+
+
+
+
+  PanResponder, ScrollView,
   StyleSheet,
   Text,
-  TouchableHighlight, View
+  TouchableHighlight,
+  View
 } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { Card, Icon, Input, Rating } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { postComment, postFavorite } from '../redux/ActionCreators'
 import { baseUrl } from '../shared/baseUrl'
-
 
 const mapStateToProps = (state) => {
   return {
@@ -28,10 +34,51 @@ const mapDispatchToProps = (dispatch) => ({
 })
 function RenderDish(props) {
   const dish = props.dish
+  const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
+    if (dx < -200) return true
+    else return false
+  }
+
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: (e, gestureState) => {
+      return true
+    },
+    onPanResponderEnd: (e, gestureState) => {
+      console.log('pan responder end', gestureState)
+      if (recognizeDrag(gestureState))
+        Alert.alert(
+          'Add Favorite',
+          'Are you sure you wish to add ' + dish.name + ' to favorite?',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                props.favorite
+                  ? console.log('Already favorite')
+                  : props.onPress()
+              },
+            },
+          ],
+          { cancelable: false },
+        )
+
+      return true
+    },
+  })
 
   if (dish != null) {
     return (
-      <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+      <Animatable.View
+        animation='fadeInDown'
+        duration={2000}
+        delay={1000}
+        {...panResponder.panHandlers}
+      >
         <Card featuredTitle={dish.name} image={{ uri: baseUrl + dish.image }}>
           <Text style={{ margin: 10 }}>{dish.description}</Text>
           <View style={styles.buttons}>
@@ -64,10 +111,10 @@ function RenderDish(props) {
   }
 }
 
-const formatDate=(string) =>{
-   var options = { year: 'numeric', month: 'long', day: 'numeric' }
-   return new Date(string).toLocaleDateString([], options)
- }
+const formatDate = (string) => {
+  var options = { year: 'numeric', month: 'long', day: 'numeric' }
+  return new Date(string).toLocaleDateString([], options)
+}
 
 function RenderComments(props) {
   const comments = props.comments
@@ -119,7 +166,7 @@ class Dishdetail extends Component {
 
   handleComment(dishId) {
     console.log(JSON.stringify(this.state))
-    
+
     this.props.postComment(
       dishId,
       this.state.rating,
@@ -135,11 +182,10 @@ class Dishdetail extends Component {
     })
   }
 
-
   render() {
     const dishId = this.props.route.params.dishId
     const { modalVisible } = this.state
-    return (
+    return (    
       <ScrollView>
         <RenderDish
           dish={this.props.dishes.dishes[+dishId]}
