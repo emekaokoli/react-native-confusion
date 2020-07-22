@@ -7,9 +7,8 @@ import { deleteFavorite } from '../redux/ActionCreators'
 import { baseUrl } from '../shared/baseUrl'
 import { Loading } from './LoadingComponent'
 
-
-const mapDispatchToProps = dispatch => ({
-    deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId))
+const mapDispatchToProps = (dispatch) => ({
+  deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
 })
 
 const mapStateToProps = (state) => {
@@ -28,42 +27,46 @@ class Favorites extends Component {
     const { navigate } = this.props.navigation
 
     const renderMenuItem = ({ item, index }) => {
-       const rightButton = [
+      const rightButton = [
+        {
+          text: 'Delete',
+          type: 'delete',
+          onPress: () => {
+            Alert.alert(
+              'Delete Favorite?',
+              'Are you sure you wish to delete the favorite dish ' +
+                item.name +
+                '?',
+              [
                 {
-                    text: 'Delete', 
-                    type: 'delete',
-                    onPress: () =>{
-                        Alert.alert(
-                            'Delete Favorite?',
-                            'Are you sure you wish to delete the favorite dish ' + item.name + '?',
-                            [
-                                { 
-                                    text: 'Cancel', 
-                                    onPress: () => console.log(item.name + 'Not Deleted'),
-                                    style: ' cancel'
-                                },
-                                {
-                                    text: 'OK',
-                                    onPress: () => this.props.deleteFavorite(item.id)
-                                }
-                            ],
-                            { cancelable: false }
-                        )
-                    }
-                }
-            ];
+                  text: 'Cancel',
+                  onPress: () => console.log(item.name + 'Not Deleted'),
+                  style: ' cancel',
+                },
+                {
+                  text: 'OK',
+                  onPress: () => this.props.deleteFavorite(item.id),
+                },
+              ],
+              { cancelable: false },
+            )
+          },
+        },
+      ]
 
       return (
-        <Swipeout right={rightButton} autoClose={true}></ListItem>
-        <ListItem
-            key={index}
-            title={item.name}
-            subtitle={item.description}
-            hideChevron={true}
-            onPress={() => navigate('Dishdetail', { dishId: item.id })}
-            leftAvatar={{ source: { uri: baseUrl + item.image } }}
-        />
-        </Swipeout>
+        <React.Fragment>
+          <Swipeout right={rightButton} autoClose={true}>
+            <ListItem
+              key={index}
+              title={item.name}
+              subtitle={item.description}
+              hideChevron={true}
+              onPress={() => navigate('Dishdetail', { dishId: item.id })}
+              leftAvatar={{ source: { uri: baseUrl + item.image } }}
+            />
+          </Swipeout>
+        </React.Fragment>
       )
     }
 
@@ -89,4 +92,4 @@ class Favorites extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites)

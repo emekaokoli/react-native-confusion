@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import {
-  Button, FlatList,
-  Modal, ScrollView,
-  StyleSheet, Text,
-  View
+  FlatList,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+
+  TouchableHighlight, View
 } from 'react-native'
 import { Card, Icon, Input, Rating } from 'react-native-elements'
 import { connect } from 'react-redux'
@@ -28,24 +31,26 @@ function RenderDish(props) {
     return (
       <Card featuredTitle={dish.name} image={{ uri: baseUrl + dish.image }}>
         <Text style={{ margin: 10 }}>{dish.description}</Text>
-        <Icon
-          raised
-          reverse
-          name={props.favorite ? 'heart' : 'heart-o'}
-          type='font-awesome'
-          color='#f50'
-          onPress={() =>
-            props.favorite ? console.log('Already favorite') : props.onPress()
-          }
-        />
-        <Icon
-          raised
-          reverse
-          name='pencil'
-          type='font-awesome'
-          color='#512DA8'
-          onPress={() => props.toggleModal()}
-        />
+        <View  style={styles.buttons}>
+          <Icon
+            raised
+            reverse
+            name={props.favorite ? 'heart' : 'heart-o'}
+            type='font-awesome'
+            color='#f50'
+            onPress={() =>
+              props.favorite ? console.log('Already favorite') : props.onPress()
+            }
+          />
+          <Icon
+            raised
+            reverse
+            name='pencil'
+            type='font-awesome'
+            color='#512DA8'
+            onPress={() => props.openModal()}
+          />
+        </View>
       </Card>
     )
   } else {
@@ -53,15 +58,27 @@ function RenderDish(props) {
   }
 }
 
+const formatDate=(string) =>{
+   var options = { year: 'numeric', month: 'long', day: 'numeric' }
+   return new Date(string).toLocaleDateString([], options)
+ }
+
 function RenderComments(props) {
+ 
+
   const comments = props.comments
   const renderCommentItem = ({ item, index }) => {
     return (
       <View key={index} style={{ margin: 10 }}>
         <Text style={{ fontSize: 14 }}>{item.comment}</Text>
-        <Text style={{ fontSize: 12 }}>{item.rating} Stars</Text>
+        <Rating
+          style={{ fontSize: 12, alignItems: 'flex-start' }}
+          imageSize={15}
+          readonly
+          startingValue={item.rating}
+        />
         <Text style={{ fontSize: 12 }}>
-          {'-- ' + item.author + ', ' + item.date}{' '}
+          {'-- ' + item.author + ', ' + formatDate(item.date)}{' '}
         </Text>
       </View>
     )
@@ -81,21 +98,22 @@ class Dishdetail extends Component {
     super(props)
     this.state = {
       favorites: [],
-      showModal: false,
-      rating: 5,
+      rating: 0,
       author: '',
       comment: '',
+      modalVisible: false,
     }
   }
   markFavorite(dishId) {
     this.props.postFavorite(dishId)
   }
-  toggleModal() {
-    this.setState({ showModal: !this.state.showModal })
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible })
   }
+
   handleComment(dishId) {
     console.log(JSON.stringify(this.state))
-    this.toggleModal()
+    
     this.props.postComment(
       dishId,
       this.state.rating,
@@ -108,64 +126,78 @@ class Dishdetail extends Component {
       rating: 5,
       author: '',
       comment: '',
-      showModal: false,
     })
   }
 
-  static navigationOptions = {
-    title: 'Dish Details',
-  }
 
   render() {
-    const dishId = this.props.navigation.getParam('dishId', '')
-    console.log('====================================');
-    console.log(this.props)
-    console.log('====================================');
+    const dishId = this.props.route.params.dishId
+    const { modalVisible } = this.state
     return (
       <ScrollView>
         <RenderDish
           dish={this.props.dishes.dishes[+dishId]}
           favorite={this.props.favorites.some((el) => el === dishId)}
           onPress={() => this.markFavorite(dishId)}
-          toggleModal={() => this.toggleModal(dishId)}
+          openModal={() => this.setModalVisible(true)}
         />
         <RenderComments
           comments={this.props.comments.comments.filter(
             (comment) => comment.dishId === dishId,
           )}
         />
-        <Modal
-          animationType={'slide'}
-          transparent={false}
-          visible={this.state.showModal}
-          onDismiss={() => {
-            this.toggleModal()
-            this.resetForm()
-          }}
-          onRequestClose={() => {
-            this.toggleModal()
-            this.resetForm()
-          }}
-        >
-          <View style={styles.modal}>
-            <Rating
-              showRating
-              stepSize='{1}'
-              value='{5}'
-              onFinishRating={(value) => this.setState({ rating: value })}
-            />
-            <Input
-              leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-              onChangeText={(value) => this.setState({ author: value })}
-            />
-            <Input
-              leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
-              onChangeText={(value) => this.setState({ comment: value })}
-            />
-            <View style={styles.formRow}>
+        <View style={{ ...styles.modal }}>
+          <Modal
+            animationType={'slide'}
+            transparent={false}
+            visible={modalVisible}
+            // onDismiss={() => {modalVisible}}
+            onRequestClose={() => {
+              this.setModalVisible(!modalVisible)
+            }}
+            useNativeDriver={true}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Rating
+                  showRating
+                  minValue={1}
+                  startingValue={1}
+                  onFinishRating={(value) => this.setState({ rating: value })}
+                  style={{ ...styles.modalText }}
+                />
+                <Text>Author:</Text>
+                <Input
+                  leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                  onChangeText={(value) => this.setState({ author: value })}
+                />
+                <Text>Comment:</Text>
+                <Input
+                  leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
+                  onChangeText={(value) => this.setState({ comment: value })}
+                />
+                <TouchableHighlight
+                  style={{ ...styles.openButton, backgroundColor: '#512DA8' }}
+                  onPress={() => {
+                    this.handleComment(dishId)
+                    this.setModalVisible(!modalVisible)
+                  }}
+                >
+                  <Text style={styles.textStyle}>Submit</Text>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  style={{ ...styles.openButton, backgroundColor: '#888' }}
+                  onPress={() => {
+                    this.setModalVisible(!modalVisible)
+                  }}
+                >
+                  <Text style={styles.textStyle}>Cancel</Text>
+                </TouchableHighlight>
+                {/* <View style={styles.formRow}>
               <Button
                 onPress={() => this.handleComment(dishId)}
-                title='SUBMIT'
+                title=''
                 color='#512DA8'
               />
             </View>
@@ -178,44 +210,59 @@ class Dishdetail extends Component {
                 color='#888'
                 title='CANCEL'
               />
+            </View> */}
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+        </View>
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  formRow: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    flexDirection: 'row',
-    margin: 20,
-  },
-  formLabel: {
-    fontSize: 18,
-    flex: 2,
-  },
-  formItem: {
-    flex: 1,
-  },
   modal: {
+    flex: 1,
     justifyContent: 'center',
-    margin: 20,
+    alignItems: 'center',
+    marginTop: 22,
   },
-  modalTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    backgroundColor: '#512DA8',
-    textAlign: 'center',
+  modalView: {
+    backgroundColor: 'white',
+    borderRadius: 15,
+    margin: 20,
+    padding: 35,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  textStyle: {
     color: 'white',
-    marginBottom: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  openButton: {
+    backgroundColor: '#F194FF',
+    borderRadius: 5,
+    padding: 13,
+    elevation: 2,
+    margin: 20,
+    height: 50,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   modalText: {
-    fontSize: 18,
-    margin: 10,
+    marginBottom: 30,
   },
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Dishdetail);
+export default connect(mapStateToProps, mapDispatchToProps)(Dishdetail)
