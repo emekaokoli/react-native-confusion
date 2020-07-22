@@ -57,6 +57,7 @@ class Home extends Component {
       toValue: 8,
       duration: 8000,
       easing: Easing.linear,
+      useNativeDriver:true
     }).start(() => this.animate())
   }
 
@@ -77,6 +78,7 @@ class Home extends Component {
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
         <Animated.View
           style={{ width: '100%', transform: [{ translateX: xpos1 }] }}
+          
         >
           <RenderItem
             item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
@@ -86,6 +88,7 @@ class Home extends Component {
         </Animated.View>
         <Animated.View
           style={{ width: '100%', transform: [{ translateX: xpos2 }] }}
+         
         >
           <RenderItem
             item={
@@ -99,6 +102,7 @@ class Home extends Component {
         </Animated.View>
         <Animated.View
           style={{ width: '100%', transform: [{ translateX: xpos3 }] }}
+          
         >
           <RenderItem
             item={
@@ -106,6 +110,7 @@ class Home extends Component {
             }
             isLoading={this.props.leaders.isLoading}
             erreMess={this.props.leaders.erreMess}
+            
           />
         </Animated.View>
       </View>

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { FlatList, Text, View } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 import { Card, ListItem } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { connect } from 'react-redux'
 import { baseUrl } from '../shared/baseUrl'
 import { Loading } from './LoadingComponent'
+
 
 const mapStateToProps = (state) => {
   return {
@@ -79,24 +81,32 @@ class About extends Component {
     } else if (this.props.leaders.errMess) {
       return (
         <ScrollView>
-          <History />
-          <Card title='Corporate Leadership'>
-            <Text>{this.props.leaders.errMess}</Text>
-          </Card>
+          <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+            <History />
+            <Card title='Corporate Leadership'>
+              <Text>{this.props.leaders.errMess}</Text>
+            </Card>
+          </Animatable.View>
         </ScrollView>
       )
     } else {
       return (
         <SafeAreaView>
           <ScrollView>
-            <History />
-            <Card title='Corporate Leadership'>
-              <FlatList
-                data={this.props.leaders.leaders}
-                renderItem={RenderLeader}
-                keyExtractor={(item) => item.id.toString()}
-              />
-            </Card>
+            <Animatable.View
+              animation='fadeInDown'
+              duration={2000}
+              delay={1000}
+            >
+              <History />
+              <Card title='Corporate Leadership'>
+                <FlatList
+                  data={this.props.leaders.leaders}
+                  renderItem={renderLeader}
+                  keyExtractor={(item) => item.id.toString()}
+                />
+              </Card>
+            </Animatable.View>
           </ScrollView>
         </SafeAreaView>
       )

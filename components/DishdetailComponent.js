@@ -5,13 +5,15 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-
   TouchableHighlight, View
 } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 import { Card, Icon, Input, Rating } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { postComment, postFavorite } from '../redux/ActionCreators'
 import { baseUrl } from '../shared/baseUrl'
+
+
 const mapStateToProps = (state) => {
   return {
     dishes: state.dishes,
@@ -29,29 +31,33 @@ function RenderDish(props) {
 
   if (dish != null) {
     return (
-      <Card featuredTitle={dish.name} image={{ uri: baseUrl + dish.image }}>
-        <Text style={{ margin: 10 }}>{dish.description}</Text>
-        <View  style={styles.buttons}>
-          <Icon
-            raised
-            reverse
-            name={props.favorite ? 'heart' : 'heart-o'}
-            type='font-awesome'
-            color='#f50'
-            onPress={() =>
-              props.favorite ? console.log('Already favorite') : props.onPress()
-            }
-          />
-          <Icon
-            raised
-            reverse
-            name='pencil'
-            type='font-awesome'
-            color='#512DA8'
-            onPress={() => props.openModal()}
-          />
-        </View>
-      </Card>
+      <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+        <Card featuredTitle={dish.name} image={{ uri: baseUrl + dish.image }}>
+          <Text style={{ margin: 10 }}>{dish.description}</Text>
+          <View style={styles.buttons}>
+            <Icon
+              raised
+              reverse
+              name={props.favorite ? 'heart' : 'heart-o'}
+              type='font-awesome'
+              color='#f50'
+              onPress={() =>
+                props.favorite
+                  ? console.log('Already favorite')
+                  : props.onPress()
+              }
+            />
+            <Icon
+              raised
+              reverse
+              name='pencil'
+              type='font-awesome'
+              color='#512DA8'
+              onPress={() => props.openModal()}
+            />
+          </View>
+        </Card>
+      </Animatable.View>
     )
   } else {
     return <View></View>
@@ -64,8 +70,6 @@ const formatDate=(string) =>{
  }
 
 function RenderComments(props) {
- 
-
   const comments = props.comments
   const renderCommentItem = ({ item, index }) => {
     return (
@@ -84,13 +88,15 @@ function RenderComments(props) {
     )
   }
   return (
-    <Card title='Comments'>
-      <FlatList
-        data={comments}
-        renderItem={renderCommentItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </Card>
+    <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+      <Card title='Comments'>
+        <FlatList
+          data={comments}
+          renderItem={renderCommentItem}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </Card>
+    </Animatable.View>
   )
 }
 class Dishdetail extends Component {
