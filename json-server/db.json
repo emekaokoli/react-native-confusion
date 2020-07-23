@@ -233,6 +233,22 @@
       "comment": "I am ookli tony ",
       "date": "2020-07-22T12:59:12.984Z",
       "id": 35
+    },
+    {
+      "dishId": 0,
+      "rating": 5,
+      "author": "Tony Pane",
+      "comment": "Guy you killed this app. Well done :)",
+      "date": "2020-07-23T17:51:57.439Z",
+      "id": 36
+    },
+    {
+      "dishId": 1,
+      "rating": 5,
+      "author": "Emeka Okoli",
+      "comment": "Testing 1234",
+      "date": "2020-07-23T17:53:54.343Z",
+      "id": 37
     }
   ],
   "promotions": [

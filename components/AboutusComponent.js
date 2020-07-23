@@ -32,7 +32,7 @@ function History() {
     </Card>
   )
 }
-function RenderLeader({ item, index }) {
+function renderLeader({ item, index }) {
   if (item != null) {
     return (
       <>

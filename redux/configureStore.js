@@ -18,19 +18,18 @@ const config = {
   debug: true,
 }
 
-
 export const ConfigureStore = () => {
   const store = createStore(
-    persistCombineReducers({
+    persistCombineReducers(config, {
       dishes,
       comments,
       promotions,
       leaders,
       favorites,
       // form: commentsInitial,
-       ...createForms({
-         userComment:commentsInitial
-          })
+      ...createForms({
+        userComment: commentsInitial,
+      }),
     }),
     applyMiddleware(thunk, logger),
   )

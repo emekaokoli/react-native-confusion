@@ -30,9 +30,15 @@ const mapDispatchToProps = (dispatch) => ({
 })
 function RenderDish(props) {
   const dish = props.dish
+
   handleViewRef = (ref) => (this.view = ref)
+
   const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
     if (dx < -200) return true
+    else return false
+  }
+  const recognizeComment = ({ moveX, moveY, dx, dy }) => {
+    if (dx > 200) return true
     else return false
   }
 
@@ -70,7 +76,15 @@ function RenderDish(props) {
           ],
           { cancelable: false },
         )
+      if (recognizeComment(gestureState)) props.openModal()
       return true
+    },
+    onPanResponderGrant: () => {
+      this.view
+        .rubberBand(1000)
+        .then((endState) =>
+          console.log(endState.finished ? 'finished' : 'cancelled'),
+        )
     },
   })
 
@@ -188,6 +202,7 @@ class Dishdetail extends Component {
 
   render() {
     const dishId = this.props.route.params.dishId
+
     const { modalVisible } = this.state
     return (
       <ScrollView>
