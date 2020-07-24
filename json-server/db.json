@@ -249,6 +249,30 @@
       "comment": "Testing 1234",
       "date": "2020-07-23T17:53:54.343Z",
       "id": 37
+    },
+    {
+      "dishId": 0,
+      "rating": 5,
+      "author": "Keanu Reeves ",
+      "comment": "Nice app",
+      "date": "2020-07-24T09:40:08.861Z",
+      "id": 38
+    },
+    {
+      "dishId": 2,
+      "rating": 0,
+      "author": "Foodie",
+      "comment": "Nice food",
+      "date": "2020-07-24T09:43:29.996Z",
+      "id": 39
+    },
+    {
+      "dishId": 1,
+      "rating": 5,
+      "author": "Tekno",
+      "comment": "Techno on the beat",
+      "date": "2020-07-24T15:54:18.911Z",
+      "id": 40
     }
   ],
   "promotions": [

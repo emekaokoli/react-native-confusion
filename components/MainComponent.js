@@ -11,6 +11,7 @@ import Contact from './ContactusComponent';
 import Dishdetail from './DishdetailComponent';
 import Favorites from './FavoriteComponent';
 import Home from './HomeComponent';
+import Login from './LoginComponent';
 import Menu from './MenuComponent';
 import Reservation from './ReservationComponent';
 
@@ -74,7 +75,6 @@ function MenuNavigatorScreen() {
   
   return (
     <MenuNavigator.Navigator
-      initialRouteName='Menu'
       screenOptions={HeaderOptions}
     >
       <MenuNavigator.Screen
@@ -101,11 +101,34 @@ function MenuNavigatorScreen() {
   )
 }
 
+const LoginNavigator = createStackNavigator()
+function LoginNavigatorScreen() {
+  return (
+    <LoginNavigator.Navigator
+      screenOptions={HeaderOptions}
+    >
+      <LoginNavigator.Screen
+        name='Login'
+        component={Login}
+        options={({ navigation }) => ({
+          drawerLabel: 'Login',
+          headerLeft: () => (
+            <Icon
+              name='menu'
+              size={24}
+              color='white'
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+    </LoginNavigator.Navigator>
+  )
+}
 const FavoritesNavigator = createStackNavigator()
 function FavoritesNavigatorScreen() {
   return (
     <FavoritesNavigator.Navigator
-      initialRouteName='Menu'
       screenOptions={HeaderOptions}
     >
       <FavoritesNavigator.Screen
@@ -130,7 +153,6 @@ const ReservationNavigator = createStackNavigator()
 function ReservationNavigatorScreen() {
   return (
     <ReservationNavigator.Navigator
-      initialRouteName='Menu'
       screenOptions={HeaderOptions}
     >
       <ReservationNavigator.Screen
@@ -157,7 +179,6 @@ function ReservationNavigatorScreen() {
  function HomeNavigatorScreen() {
    return (
      <HomeNavigator.Navigator
-       initialRouteName='Menu'
        screenOptions={HeaderOptions}
      >
        <HomeNavigator.Screen
@@ -183,7 +204,6 @@ function ReservationNavigatorScreen() {
  function AboutScreen() {
    return (
      <AboutNavigator.Navigator
-       initialRouteName='Menu'
        screenOptions={HeaderOptions}
      >
        <AboutNavigator.Screen
@@ -209,7 +229,6 @@ const ContactNavigator = createStackNavigator()
 function ContactScreen() {
   return (
     <ContactNavigator.Navigator
-      initialRouteName='Menu'
       screenOptions={HeaderOptions}
     >
       <ContactNavigator.Screen
@@ -238,7 +257,23 @@ function MainNavigatorDrawer() {
     <MainNavigator.Navigator
       drawerContent={(props) => <DrawerContent {...props} />}
       drawerStyle={{ backgroundColor: '#D1C4E9' }}
+      initialRouteName='Home'
     >
+      <MainNavigator.Screen
+        name='Login'
+        component={Login}
+        options={() => ({
+          drawerLabel: 'Login',
+          drawerIcon: ({ tintColor, focused }) => (
+            <Icon
+              name='sign-in'
+              type='font-awesome'
+              size={24}
+              color={tintColor}
+            />
+          ),
+        })}
+      />
       <MainNavigator.Screen
         name='Home'
         component={HomeNavigatorScreen}
