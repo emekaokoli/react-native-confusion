@@ -1,10 +1,19 @@
+import { MailComposer } from 'expo-mail-composer'
 import React from 'react'
 import { Text } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-import { Card, Icon } from 'react-native-elements'
+import { Button, Card, Icon } from 'react-native-elements'
 
-export default function Contact() {
-  return (
+export default class Contact extends React.Component {
+     sendMail=()=>{
+        MailComposer.composeAsync({
+            recipients: ['confusion@food.net'],
+            subject: 'Enquiry',
+            body: 'To whom it may concern:',
+        })
+    }
+render(){
+    return (
     <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
       <Card title='Our Address'>
         <Icon raised name='home' type='font-awesome' color='#512DA8' />
@@ -17,7 +26,16 @@ export default function Contact() {
         <Text>Fax: +852 8765 4321</Text>
         <Icon raised name='envelope' type='font-awesome' color='#512DA8' />
         <Text>Email: confusion@food.net</Text>
+          <Button
+                        title="Send Email"
+                        buttonStyle={{backgroundColor: "#512DA8"}}
+                        icon={<Icon name='envelope-o' type='font-awesome' color='white' />}
+                        onPress={this.sendMail}
+                        />
       </Card>
     </Animatable.View>
   )
+
+}
+
 }

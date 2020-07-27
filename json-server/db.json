@@ -273,6 +273,14 @@
       "comment": "Techno on the beat",
       "date": "2020-07-24T15:54:18.911Z",
       "id": 40
+    },
+    {
+      "dishId": 0,
+      "rating": 4,
+      "author": "Monday",
+      "comment": "Nice work ",
+      "date": "2020-07-27T08:16:43.266Z",
+      "id": 41
     }
   ],
   "promotions": [
