@@ -281,6 +281,14 @@
       "comment": "Nice work ",
       "date": "2020-07-27T08:16:43.266Z",
       "id": 41
+    },
+    {
+      "dishId": 0,
+      "rating": 3,
+      "author": "Impala",
+      "comment": "Goooooooood",
+      "date": "2020-07-27T15:07:59.073Z",
+      "id": 42
     }
   ],
   "promotions": [

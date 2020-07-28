@@ -5,7 +5,7 @@ import {
   Modal,
   PanResponder,
   ScrollView,
-  StyleSheet,
+  Share, StyleSheet,
   Text,
   TouchableHighlight,
   View
@@ -87,7 +87,18 @@ function RenderDish(props) {
         )
     },
   })
-
+ const shareDish = (title, message, url) => {
+   Share.share(
+     {
+       title: title,
+       message: title + ': ' + message + ' ' + url,
+       url: url,
+     },
+     {
+       dialogTitle: 'Share ' + title,
+     },
+   )
+ }
   if (dish != null) {
     return (
       <Animatable.View
@@ -119,6 +130,17 @@ function RenderDish(props) {
               type='font-awesome'
               color='#512DA8'
               onPress={() => props.openModal()}
+            />
+            <Icon
+              raised
+              reverse
+              name='share'
+              type='font-awesome'
+              color='#51D2A8'
+              style={styles.cardItem}
+              onPress={() =>
+                shareDish(dish.name, dish.description, baseUrl + dish.image)
+              }
             />
           </View>
         </Card>

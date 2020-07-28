@@ -1,4 +1,4 @@
-import { MailComposer } from 'expo-mail-composer'
+import * as MailComposer from 'expo-mail-composer'
 import React from 'react'
 import { Text } from 'react-native'
 import * as Animatable from 'react-native-animatable'
@@ -26,12 +26,12 @@ render(){
         <Text>Fax: +852 8765 4321</Text>
         <Icon raised name='envelope' type='font-awesome' color='#512DA8' />
         <Text>Email: confusion@food.net</Text>
-          <Button
-                        title="Send Email"
-                        buttonStyle={{backgroundColor: "#512DA8"}}
-                        icon={<Icon name='envelope-o' type='font-awesome' color='white' />}
-                        onPress={this.sendMail}
-                        />
+        <Button
+          title="Send Email"
+          buttonStyle={{backgroundColor: "#512DA8"}}
+          icon={<Icon name='envelope-o' type='font-awesome' color='white' />}
+          onPress={this.sendMail}
+          />
       </Card>
     </Animatable.View>
   )

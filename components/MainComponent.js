@@ -104,9 +104,7 @@ function MenuNavigatorScreen() {
 const LoginNavigator = createStackNavigator()
 function LoginNavigatorScreen() {
   return (
-    <LoginNavigator.Navigator
-      screenOptions={HeaderOptions}
-    >
+    <LoginNavigator.Navigator screenOptions={HeaderOptions}>
       <LoginNavigator.Screen
         name='Login'
         component={Login}
@@ -116,7 +114,7 @@ function LoginNavigatorScreen() {
             <Icon
               name='menu'
               size={24}
-              color='white'
+              iconStyle={{ color: 'white' }}
               onPress={() => navigation.toggleDrawer()}
             />
           ),
@@ -261,7 +259,7 @@ function MainNavigatorDrawer() {
     >
       <MainNavigator.Screen
         name='Login'
-        component={Login}
+        component={LoginNavigatorScreen}
         options={() => ({
           drawerLabel: 'Login',
           drawerIcon: ({ tintColor, focused }) => (
