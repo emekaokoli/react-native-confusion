@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import * as ImageManipulator from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 import * as SecureStore from 'expo-secure-store'
@@ -6,7 +7,6 @@ import React, { Component } from 'react'
 import { Image, ScrollView, StyleSheet, View } from 'react-native'
 import { Button, CheckBox, Icon, Input } from 'react-native-elements'
 import { baseUrl } from '../shared/baseUrl'
-
 class LoginScreen extends Component {
   constructor(props) {
     super(props)
@@ -140,12 +140,21 @@ class RegisterScreen extends Component {
       })
       if (!capturedImage.cancelled) {
         console.log(capturedImage)
-        this.setState({ imageUrl: capturedImage.uri })
+        this.processImage(capturedImage.uri)
       }
     }
   }
+  processImage = async (imageUri) => {
+    const processedImage = await ImageManipulator.manipulateAsync(
+      imageUri,
+      [{ resize: { width: 300, height: 300 } }],
+      { format: 'png', compress: 0.85 },
+    )
+    console.log(processedImage)
+    this.setState({ imageUrl: processedImage.uri })
+  }
 
-  handleRegister() {
+  handleRegister = () => {
     console.log(JSON.stringify(this.state))
     if (this.state.remember)
       SecureStore.setItemAsync(
@@ -233,6 +242,7 @@ class RegisterScreen extends Component {
     )
   }
 }
+
 const LoginOptions = {
   tabBarLabel: 'Login',
   tabBarIcon: ({ tintColor }) => (
@@ -267,11 +277,7 @@ export default function Login() {
         inactiveTintColor: 'gray',
       }}
     >
-      <Tab.Screen
-        name='Login'
-        component={LoginScreen}
-        options={LoginOptions}
-      />
+      <Tab.Screen name='Login' component={LoginScreen} options={LoginOptions} />
       <Tab.Screen
         name='Register'
         component={RegisterScreen}
