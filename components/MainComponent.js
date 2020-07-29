@@ -1,8 +1,9 @@
+import NetInfo from '@react-native-community/netinfo';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { Component } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/ActionCreators';
@@ -14,7 +15,6 @@ import Home from './HomeComponent';
 import Login from './LoginComponent';
 import Menu from './MenuComponent';
 import Reservation from './ReservationComponent';
-
 
 
 
@@ -357,18 +357,53 @@ function MainNavigatorDrawer() {
 }
  
 class Main extends Component {
-   componentDidMount() {
-    this.props.fetchDishes();
-    this.props.fetchComments();
-    this.props.fetchPromos();
-    this.props.fetchLeaders();
+  componentDidMount() {
+    this.props.fetchDishes()
+    this.props.fetchComments()
+    this.props.fetchPromos()
+    this.props.fetchLeaders()
+
+    NetInfo.getConnectionInfo().then((connectionInfo) => {
+      ToastAndroid.show(
+        'Initial Network Connectivity Type: ' +
+          connectionInfo.type +
+          ', effectiveType: ' +
+          connectionInfo.effectiveType,
+        ToastAndroid.LONG,
+      )
+    })
+
+    NetInfo.addEventListener('connectionChange', this.handleConnectivityChange)
   }
-  // componentDidUpdate(){
-  //    this.props.fetchDishes();
-  // this.props.fetchComments();
-  //  this.props.fetchPromos();
-  //  this.props.fetchLeaders();
-  // }
+  componentWillUnmount() {
+    NetInfo.removeEventListener(
+      'connectionChange',
+      this.handleConnectivityChange,
+    )
+  }
+
+  handleConnectivityChange = (connectionInfo) => {
+    switch (connectionInfo.type) {
+      case 'none':
+        ToastAndroid.show('You are now offline!', ToastAndroid.LONG)
+        break
+      case 'wifi':
+        ToastAndroid.show('You are now connected to WiFi!', ToastAndroid.LONG)
+        break
+      case 'cellular':
+        ToastAndroid.show(
+          'You are now connected to Cellular!',
+          ToastAndroid.LONG,
+        )
+        break
+      case 'unknown':
+        ToastAndroid.show('You now have unknown connection!', ToastAndroid.LONG)
+        break
+      default:
+        break
+    }
+  }
+
   render() {
     return (
       <NavigationContainer>
