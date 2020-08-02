@@ -7,6 +7,7 @@ import React, { Component } from 'react'
 import { Image, ScrollView, StyleSheet, View } from 'react-native'
 import { Button, CheckBox, Icon, Input } from 'react-native-elements'
 import { baseUrl } from '../shared/baseUrl'
+
 class LoginScreen extends Component {
   constructor(props) {
     super(props)
@@ -123,6 +124,9 @@ class RegisterScreen extends Component {
       imageUrl: baseUrl + 'images/logo.png',
     }
   }
+  // componentDidMount() {
+  //   this.getImageFromGallery()
+  // }
 
   getImageFromCamera = async () => {
     const cameraPermission = await Permissions.askAsync(Permissions.CAMERA)
@@ -144,6 +148,27 @@ class RegisterScreen extends Component {
       }
     }
   }
+
+  // getImageFromGallery = () => {
+    getImageFromGallery = async () => {
+      let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync()
+
+      if (permissionResult.granted === false) {
+        alert('Permission to access camera roll is required!')
+        return
+      }
+
+      let pickerResult = await ImagePicker.launchImageLibraryAsync()
+      // if (pickerResult.cancelled === true) {
+      //   return
+      // }
+      // if (pickerResult !== null) {
+
+      // }
+      console.log(pickerResult)
+      this.processImage(pickerResult.uri)
+    }
+  //}
   processImage = async (imageUri) => {
     const processedImage = await ImageManipulator.manipulateAsync(
       imageUri,
@@ -176,7 +201,23 @@ class RegisterScreen extends Component {
               loadingIndicatorSource={require('./images/logo.png')}
               style={styles.image}
             />
-            <Button title='Camera' onPress={this.getImageFromCamera} />
+            <View style={styles.buttonsub}>
+              <View styles={styles.formButton}>
+                <Button
+                  title='Camera'
+                  onPress={this.getImageFromCamera}
+                  styles={styles.formButton}
+                />
+              </View>
+              <Button
+                title='Gallery'
+                onPress={this.getImageFromGallery}
+                styles={styles.buttonsub}
+              />
+            </View>
+            {/* <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
+        <Text style={styles.buttonText}>Pick a photo</Text>
+      </TouchableOpacity> */}
           </View>
           <Input
             placeholder='Username'
@@ -311,4 +352,9 @@ const styles = StyleSheet.create({
   formButton: {
     margin: 60,
   },
+  buttonsub:{
+    justifyContent:'space-between',
+    flexDirection:'row'
+
+  }
 })

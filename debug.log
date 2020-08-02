@@ -172,3 +172,97 @@
 [0728/180341.064:ERROR:crash_report_database_win.cc(428)] unexpected header
 [0728/181841.064:ERROR:crash_report_database_win.cc(428)] unexpected header
 [0729/160719.672:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/125533.150:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/130534.239:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/130534.240:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/131034.259:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/132534.263:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/134034.267:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/135534.269:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/141034.271:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/142534.272:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/144034.273:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/145534.273:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/151034.274:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/152534.275:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/153618.250:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/154034.277:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/155534.278:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/161034.279:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/162534.281:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/164034.282:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/165534.282:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/171034.283:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/172534.285:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0730/174034.286:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/134004.911:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/135004.912:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/135004.913:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/135504.938:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/141004.940:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/142504.943:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/144004.944:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/145504.945:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/151004.946:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/152504.947:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/154004.948:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/204834.797:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0731/205016.623:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.623:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.627:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.717:ERROR:exception_snapshot_win.cc(98)] thread ID 11620 not found in process
+[0731/205016.623:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.717:ERROR:exception_snapshot_win.cc(98)] thread ID 17128 not found in process
+[0731/205016.717:ERROR:exception_snapshot_win.cc(98)] thread ID 17328 not found in process
+[0731/205016.717:ERROR:exception_snapshot_win.cc(98)] thread ID 17056 not found in process
+[0731/205016.738:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.739:ERROR:exception_snapshot_win.cc(98)] thread ID 7684 not found in process
+[0731/205016.743:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.743:ERROR:exception_snapshot_win.cc(98)] thread ID 16444 not found in process
+[0731/205016.768:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.768:ERROR:exception_snapshot_win.cc(98)] thread ID 16988 not found in process
+[0731/205016.771:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.772:ERROR:exception_snapshot_win.cc(98)] thread ID 16056 not found in process
+[0731/205016.778:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.778:ERROR:exception_snapshot_win.cc(98)] thread ID 468 not found in process
+[0731/205016.790:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.791:ERROR:exception_snapshot_win.cc(98)] thread ID 11572 not found in process
+[0731/205016.797:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.798:ERROR:exception_snapshot_win.cc(98)] thread ID 11072 not found in process
+[0731/205016.801:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.802:ERROR:exception_snapshot_win.cc(98)] thread ID 1336 not found in process
+[0731/205016.808:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.808:ERROR:exception_snapshot_win.cc(98)] thread ID 16996 not found in process
+[0731/205016.818:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.819:ERROR:exception_snapshot_win.cc(98)] thread ID 17016 not found in process
+[0731/205016.823:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.823:ERROR:exception_snapshot_win.cc(98)] thread ID 2544 not found in process
+[0731/205016.827:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.827:ERROR:exception_snapshot_win.cc(98)] thread ID 10160 not found in process
+[0731/205016.829:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.829:ERROR:exception_snapshot_win.cc(98)] thread ID 10196 not found in process
+[0731/205016.879:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.879:ERROR:exception_snapshot_win.cc(98)] thread ID 10880 not found in process
+[0731/205016.916:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0731/205016.916:ERROR:exception_snapshot_win.cc(98)] thread ID 17144 not found in process
+[0731/215457.565:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/181217.337:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/183732.398:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/223155.340:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/224155.340:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/224155.341:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/224655.396:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/230155.397:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/231655.398:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/233155.399:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0801/234655.399:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/000155.401:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/001655.403:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/003155.416:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/004655.417:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/010155.418:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/011655.419:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/013155.421:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/014655.421:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/020155.423:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0802/021655.423:ERROR:crash_report_database_win.cc(428)] unexpected header

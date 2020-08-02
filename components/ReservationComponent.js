@@ -1,4 +1,4 @@
-import { Notifications } from 'expo'
+import * as Calendar from 'expo-calendar'
 import * as Permissions from 'expo-permissions'
 import React, { Component } from 'react'
 import {
@@ -14,6 +14,16 @@ import {
 import * as Animatable from 'react-native-animatable'
 import DatePicker from 'react-native-datepicker'
 
+// async function getDefaultCalendarSource() {
+//   const calendars = await Calendar.getCalendarsAsync()
+//   const defaultCalendars = calendars.filter(
+//     (each) => each.source.name === 'Default',
+//   )
+//   return defaultCalendars[0].source
+// }
+async function getDefaultCalendarSource() {
+  await Calendar.getCalendarsAsync().then((id) => console.log(id))
+}
 class Reservation extends Component {
   constructor(props) {
     super(props)
@@ -30,9 +40,61 @@ class Reservation extends Component {
   // }
 
   handleReservation() {
+    const { guests, smoking, date } = this.state
     console.log(JSON.stringify(this.state))
     this.Resevationlert()
+    this.addReservationToCalendar(date)
   }
+  async obtainCalendarPermission() {
+    let permission = await Permissions.getAsync(Permissions.CALENDAR)
+    if (permission.status !== 'granted') {
+      permission = await Permissions.askAsync(Permissions.CALENDAR)
+      return
+    }
+    if (permission.status !== 'granted') {
+      permission = await Permissions.askAsync(Permissions.REMINDERS)
+      return
+
+      if (permission.status !== 'granted') {
+        Alert.alert('Permission not granted to calendar')
+      }
+    }
+    return permission
+  }
+
+  async addReservationToCalendar(date) {
+    await this.obtainCalendarPermission()
+    var dateMs = Date.parse(date)
+    var startDate = new Date(dateMs)
+    var endDate = new Date(dateMs + 2 * 60 * 60 * 1000)
+
+    getDefaultCalendarSource()
+    const newCalendar = await Calendar.createCalendarAsync({
+      title: 'Con Fusion Reservation',
+      color: '#512DA8',
+      entityType: Calendar.EntityTypes.EVENT,
+      sourceId: getDefaultCalendarSource.id,
+      source: getDefaultCalendarSource,
+      name: 'Restauran confusion',
+      ownerAccount: 'personal',
+      accessLevel: Calendar.CalendarAccessLevel.OWNER,
+    })
+
+      .then((id) => {
+        Calendar.createEventAsync(id, {
+          title: 'Con Fusion Table Reservation',
+          startDate: startDate,
+          endDate: endDate,
+          timeZone: 'Asia/Hong_Kong',
+          location:
+            '121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong',
+        }).catch((err) => console.log(err))
+        // console.log(`calendar ID is: ${id}`)
+      })
+
+      .catch((err) => console.log(err))
+  }
+
   handletoggle() {
     this.toggleModal()
   }
@@ -42,53 +104,36 @@ class Reservation extends Component {
       guests: 1,
       smoking: false,
       date: '',
-      showModal: false,
+      visible: false,
     })
   }
- async obtainNotificationPermission() {
-        let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
-        if (permission.status !== 'granted') {
-            permission = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
-            if (permission.status !== 'granted') {
-                Alert.alert('Permission not granted to show notifications');
-            }
-        }
-        return permission;
-    }
 
-    async presentLocalNotification(date) {
-        await this.obtainNotificationPermission();
-        Notifications.presentLocalNotificationAsync({
-            title: 'Your Reservation',
-            body: 'Reservation for '+ date + ' requested',
-            ios: {
-                sound: true
-            },
-            android: {
-                sound: true,
-                vibrate: true,
-                color: '#512DA8'
-            }
-        });
-    }
   Resevationlert = () => {
-    const formatDate = (string) => {
-      var options = { year: 'numeric', month: 'long', day: 'numeric' }
-      return new Date(string).toLocaleDateString([], options)
-    }
-   
+    const { guests, smoking, date } = this.state
+
+    // const formatDate = (string) => {
+    //   var options = { year: 'numeric', month: 'long', day: 'numeric' }
+    //   return new Date(string).toLocaleDateString([], options)
+    // }
+
     Alert.alert(
       'Is your Reservation Okay',
-      `Number of Guests: ${this.state.guests},
-        Do you Smoke ?: ${this.state.smoking ? 'Yes' : 'No'},
-        Date and Time: ${formatDate(this.state.date)}`,
+      `Number of Guests: ${guests},
+        Do you Smoke ?: ${smoking ? 'Yes' : 'No'},
+        Date and Time: ${date}`,
       [
         {
           text: 'Cancel',
           onPress: () => this.resetForm(),
           style: 'cancel',
         },
-        { text: 'OK', onPress: () =>  {this.presentLocalNotification(this.state.date);this.resetForm() }},
+        {
+          text: 'OK',
+          onPress: () => {
+            this.addReservationToCalendar(date)
+            this.resetForm()
+          },
+        },
       ],
       { cancelable: false },
     )
@@ -101,8 +146,9 @@ class Reservation extends Component {
         duration={2000}
         delay={1000}
         ref={this.handleViewRef}
+        useNativeDriver={true}
       >
-        <ScrollView>
+        <ScrollView useNativeDriver={true}>
           <View style={styles.formRow}>
             <Text style={styles.formLabel}>Number of Guests</Text>
             <Picker
@@ -132,6 +178,7 @@ class Reservation extends Component {
           <View style={styles.formRow}>
             <Text style={styles.formLabel}>Date and Time</Text>
             <DatePicker
+              useNativeDriver={true}
               style={{ flex: 2, marginRight: 20 }}
               date={this.state.date}
               format=''
@@ -155,6 +202,7 @@ class Reservation extends Component {
               onDateChange={(date) => {
                 this.setState({ date: date })
               }}
+              useNativeDriver={true}
             />
           </View>
           <View style={styles.formRow}>
