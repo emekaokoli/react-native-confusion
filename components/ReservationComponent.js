@@ -1,4 +1,5 @@
 import * as Calendar from 'expo-calendar'
+import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
 import React, { Component } from 'react'
 import {
@@ -33,6 +34,38 @@ class Reservation extends Component {
       date: '',
       visible: false,
     }
+  }
+  async obtainNotificationPermission() {
+    let permission = await Permissions.getAsync(
+      Permissions.USER_FACING_NOTIFICATIONS,
+    )
+    if (permission.status !== 'granted') {
+      permission = await Permissions.askAsync(
+        Permissions.USER_FACING_NOTIFICATIONS,
+      )
+      if (permission.status !== 'granted') {
+        Alert.alert('Permission not granted to show notifications')
+      }
+    }
+    return permission
+  }
+
+  async presentLocalNotification(date) {
+    await this.obtainNotificationPermission().catch((err) => console.Error(err))
+    Notifications.presentLocalNotificationAsync({
+      title: 'Your Reservation',
+      body: 'Reservation for ' + date + ' requested',
+      ios: {
+        sound: true,
+      },
+      android: {
+        sound: true,
+        vibrate: true,
+        color: '#512DA8',
+      },
+      
+    })
+    .catch((err) => console.Error(err))
   }
 
   // toggleModal() {
@@ -89,9 +122,8 @@ class Reservation extends Component {
           location:
             '121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong',
         }).catch((err) => console.log(err))
-        // console.log(`calendar ID is: ${id}`)
+        console.log(`calendar ID is: ${id}`)
       })
-
       .catch((err) => console.log(err))
   }
 
@@ -130,7 +162,8 @@ class Reservation extends Component {
         {
           text: 'OK',
           onPress: () => {
-            this.addReservationToCalendar(date)
+            this.addReservationToCalendar(date);
+            this.presentLocalNotification(date);
             this.resetForm()
           },
         },

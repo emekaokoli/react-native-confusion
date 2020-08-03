@@ -202,18 +202,8 @@ class RegisterScreen extends Component {
               style={styles.image}
             />
             <View style={styles.buttonsub}>
-              <View styles={styles.formButton}>
-                <Button
-                  title='Camera'
-                  onPress={this.getImageFromCamera}
-                  styles={styles.formButton}
-                />
-              </View>
-              <Button
-                title='Gallery'
-                onPress={this.getImageFromGallery}
-                styles={styles.buttonsub}
-              />
+              <Button title='Camera' onPress={this.getImageFromCamera} />
+              <Button title='Gallery' onPress={this.getImageFromGallery} />
             </View>
             {/* <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
         <Text style={styles.buttonText}>Pick a photo</Text>
@@ -355,6 +345,5 @@ const styles = StyleSheet.create({
   buttonsub:{
     justifyContent:'space-between',
     flexDirection:'row'
-
   }
 })
